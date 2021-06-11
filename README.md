@@ -12,7 +12,7 @@ I didn't remove the whole content because it has some useful hacks for image pos
 
 ## USAGE:
 
-Edit template just edit a template, there are some variables to set for the title page:
+Edit template just edit a template. Zip it and upload to Overleaf or any other similar service. You might also run it locally. The main file is called `main.tex`. There are some variables to set for the title page:
 
 - `\author` – name of the author,
 - `\title` – title of the thesis,
