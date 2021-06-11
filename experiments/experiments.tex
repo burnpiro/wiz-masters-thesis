@@ -1,0 +1,13 @@
+\chapter{Experiments}\label{chapter:experiments}
+\thispagestyle{chapterBeginStyle}
+
+In this chapter, I will describe the experimental setup with all requires libraries. Section \ref{section:datasets} includes the description, analysis, and examples from the datasets used in the experiments. It also provides an explanation and the assumption on how to simulate a drop in the model performance \ref{remark:performance-drop-while-train} used in training. The model training process is defined in section \ref{section:models}. Because the model performance and training are not a part of experiments, training results are also added to this section. Real-world augmentations used in this study are defined in section \ref{section:augmentation}. These augmentations are applied to the images in the first part of the experiments (described in Section \ref{section:dont-augment-me-definition}). Experiments are divided into two parts. The first part (defined in Section \ref{section:dont-augment-me-definition}) is going to test the effect that augmentations have on attribution methods. The second part (defined in Section \ref{section:can-i-rely-on-you-definition}) is going to check if there is a reliable measurement that can be used to compare XAI methods.
+
+\section*{Environment and framework}
+
+The training environment was designed around the PyTorch library \cite{NEURIPS2019_9015}\footnote{Detailed implementation and guide is available at \url{https://github.com/burnpiro/xai-correlation}, Wiki page with additional instructions and results is available at \url{https://github.com/burnpiro/xai-correlation/wiki}}. Augmentations described in section \ref{section:augmentation} are performed with the help of the G'MIC library \cite{gmic}. Most of the experiments use Captum \cite{kokhlikyan2020captum} and scikit-learn \cite{scikit-learn} libraries to process, analyze and produce results of attribution methods. In the experiments, not all methods are used for all experiments. This is due to the limited amount of memory available on the graphic card used to perform analysis. Methods like Integrated Gradients \cite{sundararajan2017axiomatic} cannot be used to calculate the value of Sensitivity \cite{yeh2019fidelity} because it requires storing over $500$ interpolations to generate the result. These details will be explained in sections describing a particular experiment. All the experiments are run on the \textit{GeForce GTX 1080 Ti} with 11GB of memory, and the total processing time of all experiments is around 508 hours (this assumes running a version with example generation).
+
+\input{experiments/datasets}
+\input{experiments/models}
+\input{experiments/augmentations}
+\input{experiments/description}

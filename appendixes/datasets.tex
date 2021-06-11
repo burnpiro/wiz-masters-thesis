@@ -1,0 +1,172 @@
+\section{Datasets}\label{appendix:datasets}
+
+\subsection{Stanford Dogs}\label{appendix:datasets:stanford-dogs}
+
+\begin{figure}[ht]
+  \centering
+ \begin{subfigure}{.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{appendixes/images/dogs-train.png}
+    \caption{Train dataset}
+\end{subfigure}
+ \begin{subfigure}{.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{appendixes/images/dogs-test.png}
+    \caption{Test dataset}
+\end{subfigure}
+
+ \caption{Class distribution in \textit{Stanford Dogs}\cite{stanford-dogs} dataset. Data available at \url{http://vision.stanford.edu/aditya86/ImageNetDogs/}.}
+\end{figure}
+
+\FloatBarrier
+
+\subsection{Food 101}\label{appendix:datasets:food101}
+
+Data available at \url{https://www.kaggle.com/dansbecker/food-101}. Each class has 750 examples in training dataset and 250 examples in test dataset. 101 classes in total.
+
+\FloatBarrier
+
+\subsection{Edible wild plants}\label{appendix:datasets:edible-plants}
+
+\begin{figure}[ht]
+  \centering
+ \begin{subfigure}{.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{appendixes/images/edible-train.png}
+    \caption{Train dataset}
+\end{subfigure}
+ \begin{subfigure}{.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{appendixes/images/edible-test.png}
+    \caption{Test dataset}
+\end{subfigure}
+
+ \caption{Class distribution in \textit{Edible wild plants}\cite{edible-wild-plants} dataset. Data available at \url{https://www.kaggle.com/gverzea/edible-wild-plants}.}
+\end{figure}
+
+\FloatBarrier
+
+\subsection{Marvel Heroes}\label{appendix:datasets:marvel}
+
+\begin{figure}[hbt!]
+  \centering
+ \begin{subfigure}{.35\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{appendixes/images/marvel-train.png}
+    \caption{Train dataset}
+\end{subfigure}
+ \begin{subfigure}{.35\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{appendixes/images/marvel-test.png}
+    \caption{Test dataset}
+\end{subfigure}
+
+ \caption{Class distribution in \textit{Marvel Heroes}\cite{marvel-heroes} dataset. Data available at \url{https://www.kaggle.com/hchen13/marvel-heroes}.}
+\end{figure}
+
+\FloatBarrier
+
+\subsection{Plants}\label{appendix:datasets:plants}
+
+\begin{figure}[ht]
+  \centering
+ \begin{subfigure}{.4\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{appendixes/images/plants-train.png}
+    \caption{Train dataset}
+\end{subfigure}
+ \begin{subfigure}{.4\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{appendixes/images/plants-test.png}
+    \caption{Test dataset}
+\end{subfigure}
+
+ \caption{Class distribution in \textit{Plants}\cite{plants-dataset} dataset. Data available at \url{https://www.kaggle.com/muhammadjawad1998/plants-dataset99-classes?select=Plant_Data}.}
+\end{figure}
+
+\FloatBarrier
+
+\section{Models}\label{appendix:models:scores}
+
+Trained models are available at \url{https://drive.google.com/drive/folders/1WVmokp5vaPwOGhpEC6elGVE0aM7fPqNU?usp=sharing}. Step by step instruction on how to train models is available at \url{https://github.com/burnpiro/xai-correlation/wiki/Train-and-Eval-Models}.
+
+\begin{longtable}{|l|l|l|l|r|r|}
+\caption{Models' F1 and Accuracy scores}
+\label{tab:appendix:models:all-scores} \\\hline
+ID &        Dataset &         Model & Data Fraction &     Acc &      F1 \\\hline
+0  &  Edible wild plants &      ResNet18 &       100\% &  0.8146 &  0.7671 \\
+1  &  Edible wild plants &      ResNet18 &        80\% &  0.7867 &  0.7348 \\
+2  &  Edible wild plants &      ResNet18 &        60\% &  0.7709 &  0.7168 \\
+3  &  Edible wild plants &      ResNet18 &        40\% &  0.7411 &  0.6634 \\
+4  &  Edible wild plants &      ResNet18 &        20\% &  0.5519 &  0.4914 \\\hline
+5  &        Food101 &      ResNet18 &       100\% &  0.7650 &  0.7632 \\
+6  &        Food101 &      ResNet18 &        80\% &  0.7550 &  0.7532 \\
+7  &        Food101 &      ResNet18 &        60\% &  0.7362 &  0.7326 \\
+8  &        Food101 &      ResNet18 &        40\% &  0.7146 &  0.7122 \\
+9  &        Food101 &      ResNet18 &        20\% &  0.6741 &  0.6689 \\\hline
+10 &         Marvel Heroes &      ResNet18 &       100\% &  0.6813 &  0.6798 \\
+11 &         Marvel Heroes &      ResNet18 &        80\% &  0.6935 &  0.6923 \\
+12 &         Marvel Heroes &      ResNet18 &        60\% &  0.6759 &  0.6693 \\
+13 &         Marvel Heroes &      ResNet18 &        40\% &  0.6361 &  0.6301 \\
+14 &         Marvel Heroes &      ResNet18 &        20\% &  0.6017 &  0.5960 \\\hline
+15 &     Plants &      ResNet18 &       100\% &  0.8895 &  0.8860 \\
+16 &     Plants &      ResNet18 &        80\% &  0.8648 &  0.8590 \\
+17 &     Plants &      ResNet18 &        60\% &  0.8287 &  0.8240 \\
+18 &     Plants &      ResNet18 &        40\% &  0.7912 &  0.7855 \\
+19 &     Plants &      ResNet18 &        20\% &  0.7189 &  0.7010 \\\hline
+20 &  Stanford Dogs &      ResNet18 &       100\% &  0.7738 &  0.7662 \\
+21 &  Stanford Dogs &      ResNet18 &        80\% &  0.7757 &  0.7681 \\
+22 &  Stanford Dogs &      ResNet18 &        60\% &  0.7676 &  0.7618 \\
+23 &  Stanford Dogs &      ResNet18 &        40\% &  0.7633 &  0.7567 \\
+24 &  Stanford Dogs &      ResNet18 &        20\% &  0.7278 &  0.7208 \\\hline
+25 &  Edible wild plants &  EfficientNet B0 &       100\% &  0.8067 &  0.7359 \\
+26 &  Edible wild plants &  EfficientNet B0 &        80\% &  0.7805 &  0.7253 \\
+27 &  Edible wild plants &  EfficientNet B0 &        60\% &  0.7165 &  0.6338 \\
+28 &  Edible wild plants &  EfficientNet B0 &        40\% &  0.5760 &  0.5312 \\
+29 &  Edible wild plants &  EfficientNet B0 &        20\% &  0.3392 &  0.2713 \\\hline
+30 &        Food101 &  EfficientNet B0 &       100\% &  0.8374 &  0.8368 \\
+31 &        Food101 &  EfficientNet B0 &        80\% &  0.8253 &  0.8248 \\
+32 &        Food101 &  EfficientNet B0 &        60\% &  0.8140 &  0.8131 \\
+33 &        Food101 &  EfficientNet B0 &        40\% &  0.7871 &  0.7870 \\
+34 &        Food101 &  EfficientNet B0 &        20\% &  0.7395 &  0.7385 \\\hline
+35 &         Marvel Heroes &  EfficientNet B0 &       100\% &  0.7119 &  0.7041 \\
+36 &         Marvel Heroes &  EfficientNet B0 &        80\% &  0.6918 &  0.6831 \\
+37 &         Marvel Heroes &  EfficientNet B0 &        60\% &  0.6892 &  0.6856 \\
+38 &         Marvel Heroes &  EfficientNet B0 &        40\% &  0.6493 &  0.6444 \\
+39 &         Marvel Heroes &  EfficientNet B0 &        20\% &  0.5831 &  0.5774 \\\hline
+40 &     Plants &  EfficientNet B0 &       100\% &  0.8734 &  0.8703 \\
+41 &     Plants &  EfficientNet B0 &        80\% &  0.8523 &  0.8487 \\
+42 &     Plants &  EfficientNet B0 &        60\% &  0.8218 &  0.8165 \\
+43 &     Plants &  EfficientNet B0 &        40\% &  0.7774 &  0.7664 \\
+44 &     Plants &  EfficientNet B0 &        20\% &  0.6734 &  0.6422 \\\hline
+45 &  Stanford Dogs &  EfficientNet B0 &       100\% &  0.8343 &  0.8289 \\
+46 &  Stanford Dogs &  EfficientNet B0 &        80\% &  0.8293 &  0.8253 \\
+47 &  Stanford Dogs &  EfficientNet B0 &        60\% &  0.8240 &  0.8187 \\
+48 &  Stanford Dogs &  EfficientNet B0 &        40\% &  0.8041 &  0.7972 \\
+49 &  Stanford Dogs &  EfficientNet B0 &        20\% &  0.7654 &  0.7549 \\\hline
+50 &  Edible wild plants &      DenseNet 121 &       100\% &  0.8777 &  0.8357 \\
+51 &  Edible wild plants &      DenseNet 121 &        80\% &  0.8520 &  0.8145 \\
+52 &  Edible wild plants &      DenseNet 121 &        60\% &  0.8062 &  0.7502 \\
+53 &  Edible wild plants &      DenseNet 121 &        40\% &  0.7718 &  0.7210 \\
+54 &  Edible wild plants &      DenseNet 121 &        20\% &  0.6576 &  0.5957 \\\hline
+55 &        Food101 &      DenseNet 121 &       100\% &  0.8465 &  0.8447 \\
+56 &        Food101 &      DenseNet 121 &        80\% &  0.8356 &  0.8346 \\
+57 &        Food101 &      DenseNet 121 &        60\% &  0.8213 &  0.8189 \\
+58 &        Food101 &      DenseNet 121 &        40\% &  0.8023 &  0.8005 \\
+59 &        Food101 &      DenseNet 121 &        20\% &  0.7585 &  0.7555 \\\hline
+60 &         Marvel Heroes &      DenseNet 121 &       100\% &  0.7196 &  0.7127 \\
+61 &         Marvel Heroes &      DenseNet 121 &        80\% &  0.6919 &  0.6911 \\
+62 &         Marvel Heroes &      DenseNet 121 &        60\% &  0.7164 &  0.7101 \\
+63 &         Marvel Heroes &      DenseNet 121 &        40\% &  0.6853 &  0.6739 \\
+64 &         Marvel Heroes &      DenseNet 121 &        20\% &  0.6777 &  0.6582 \\\hline
+65 &     Plants &      DenseNet 121 &       100\% &  0.9016 &  0.8995 \\
+66 &     Plants &      DenseNet 121 &        80\% &  0.8829 &  0.8799 \\
+67 &     Plants &      DenseNet 121 &        60\% &  0.8567 &  0.8516 \\
+68 &     Plants &      DenseNet 121 &        40\% &  0.8233 &  0.8182 \\
+69 &     Plants &      DenseNet 121 &        20\% &  0.7494 &  0.7397 \\\hline
+70 &  Stanford Dogs &      DenseNet 121 &       100\% &  0.8290 &  0.8244 \\
+71 &  Stanford Dogs &      DenseNet 121 &        80\% &  0.8179 &  0.8130 \\
+72 &  Stanford Dogs &      DenseNet 121 &        60\% &  0.8153 &  0.8099 \\
+73 &  Stanford Dogs &      DenseNet 121 &        40\% &  0.8042 &  0.7989 \\
+74 &  Stanford Dogs &      DenseNet 121 &        20\% &  0.7932 &  0.7846 \\\hline
+\end{longtable}

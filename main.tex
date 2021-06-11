@@ -1,0 +1,641 @@
+% ***************************************************************************************************
+%
+%	Szablon pracy magisterskiej dla Politechniki Wrocławskiej w wersji dwustronnej.
+%	Autor:	Tomasz Strzałka
+%
+%	Udostępniony dzięki uprzejmości dr Macieja Gębali z Wydziału Podstawowych Problemów Techniki
+%
+% ***************************************************************************************************
+
+% Styl dwustronny z domyślną wielkością czcionki 10pt oraz oddzieloną stroną tytułową (titlepage).
+% Domyślnie rodziały rozpoczynają się na stronie prawej (openright).
+\documentclass{book}
+
+% ***************************************************************************************************
+% Ustawienia języka
+% ***************************************************************************************************
+
+\usepackage[english]{babel}
+
+% Podstawowe ustawienia języka, według którego formatowany będzie dokument
+
+% Pakiet babel dla polskiego języka powoduje konflikt z pakietem amssymb.
+% Polecenie '\lll' definiują oba pakiety - porządana jest druga definicja.
+\let\lll\undefined
+
+% W przypadku wielojęzykowości ustawia główny język dokumentu
+\selectlanguage{english}
+
+% Kodowanie dokumentu
+\usepackage[utf8]{inputenc}
+
+% Dowolny rozmiar czcionek, kodowanie znaków
+\usepackage{lmodern}
+
+% Polskie wcięcia akapitów
+\usepackage{indentfirst}
+
+% Polskie łamanie wyrazów
+% \usepackage[plmath]{polski}
+
+% Przecinek w wyrażeniach matematycznych zamiast kropki
+% \usepackage{textualicomma}
+\usepackage[T1]{fontenc}
+
+% Polskie formatowanie typograficzne
+\frenchspacing
+
+% Zapewnia liczne usprawnienia wyświetlania i organizacji matematycznych formuł. 
+\usepackage{amsmath}
+
+% Wprowadza rozszerzony zestaw symboli m.in. \leadsto
+\usepackage{amssymb}
+
+% Dodatkowa, ,,kręcona'' czcionka matematyczna
+\usepackage{mathrsfs}
+
+% Dodatkowe wsparcie dla środowiska mathbb, które nie wspiera domyślnie cyfr (\mathbb{})
+\usepackage{bbold}
+
+% Fixes/improves amsmath
+\usepackage{mathtools}
+
+% adds floating barier
+\usepackage[section]{placeins}
+
+% long tables
+\usepackage{longtable}
+
+% backslash in table
+\usepackage{diagbox}
+
+% uncomment to show line numbers
+\usepackage{lineno}
+% \linenumbers
+
+% ***************************************************************************************************
+% Kolory  
+% ***************************************************************************************************
+
+% Umożliwia kolorowanie poszczególnych komórek tabeli
+\usepackage[table]{xcolor}% http://ctan.org/pkg/
+
+% Umożliwia łatwą zmianę koloru linii w tabeli
+\usepackage{tabu}
+
+% Umożliwia rozszerzoną kontrolę nad kolorami.
+\usepackage{xcolor}
+
+% Definicje kolorów
+\definecolor{lgray}{HTML}{9F9F9F}
+\definecolor{dgray}{HTML}{5F5F5F}
+% lgray				-	nazwa nowo zdefiniowanego koloru
+% HTML				-	model kolorów
+% CCCCCC			-	wartość koloru zgodna z modelem
+
+% ***************************************************************************************************
+% Algorytmy 
+% ***************************************************************************************************
+
+% Udostępnia środowisko do konstruowania pseudokodów
+\usepackage[ruled,vlined,linesnumbered,longend,algochapter]{algorithm2e}
+% ruled	- poziome kreski na początku i końcu algorytmu, podpis na górze oddzielony również kreską poziomą
+% vlined - pionowe kreski łączące początek polecenia z jego końcem
+% linesnumbered	- numerowanie kolejnych wierszy algorytmu
+% longend - długie końcówki np. ifend, forend itd.
+% algochapter - numeracja z rozdziałami
+
+% Zamiana nazwy środowiska z domyślnej "Algorithm X" na "Pseudokod X"
+% \newenvironment{pseudokod}[1][htb]{
+% 	\renewcommand{\algorithmcfname}{
+% Algorithm}
+% 	\begin{algorithm}[#1]%
+% 	}{
+% \end{algorithm}
+% }
+
+% Zmiana rozmiaru komentarzy
+\newcommand\algcomment[1]{
+	\footnotesize{#1}
+}
+
+% Ustawienie zadanego stylu dla komentarzy
+\SetCommentSty{algcomment}
+
+% Wyśrodkowana tylda
+\usepackage{textcomp}%
+\newcommand{\textapprox}{\raisebox{0.5ex}{\texttildelow}}
+
+% Listowanie kodów źródłowych
+\usepackage{listings} 
+\renewcommand{\lstlistingname}{Source Code} % Polska nazwa listingu
+
+% Definicje pecjalnych znaków, które nie są obsługiwane w środowisku listing
+\lstset{literate=
+	{ż}{{\.{z}}}1	{ź}{{\'{z}}}1
+	{ć}{{\'{c}}}1	{ń}{{\'{n}}}1
+	{ą}{{\c a}}1	{ś}{{\'{s}}}1
+	{ł}{{\l}}1		{ę}{{\c{e}}}1
+	{ó}{{\'{o}}}1	{á}{{\'a}}1
+	{é}{{\'e}}1		{í}{{\'i}}1
+	{ó}{{\'o}}1		{ú}{{\'u}}1
+	{ù}{{\`u}}1		{Á}{{\'A}}1
+	{É}{{\'E}}1		{Í}{{\'I}}1
+	{Ó}{{\'O}}1		{Ú}{{\'U}}1
+	{à}{{\`a}}1		{è}{{\'e}}1
+	{ì}{{\`i}}1		{ò}{{\`o}}1
+	{ò}{{\`o}}1		{À}{{\`A}}1
+	{È}{{\'E}}1		{Ì}{{\`I}}1
+	{Ò}{{\`O}}1		{Ò}{{\`O}}1
+	{ä}{{\"a}}1		{ë}{{\"e}}1
+	{ï}{{\"i}}1		{ö}{{\"o}}1
+	{ü}{{\"u}}1		{Ä}{{\"A}}1
+	{Ë}{{\"E}}1		{Ï}{{\"I}}1
+	{Ö}{{\"O}}1		{Ü}{{\"U}}1
+	{â}{{\^a}}1		{ê}{{\^e}}1
+	{î}{{\^i}}1		{ô}{{\^o}}1
+	{û}{{\^u}}1		{Â}{{\^A}}1
+	{Ê}{{\^E}}1		{Î}{{\^I}}1
+	{Ô}{{\^O}}1		{Û}{{\^U}}1
+	{œ}{{\oe}}1		{Œ}{{\OE}}1
+	{æ}{{\ae}}1		{Æ}{{\AE}}1
+	{ß}{{\ss}}1		{ç}{{\c c}}1
+	{Ç}{{\c C}}1	{ø}{{\o}}1
+	{å}{{\r a}}1	{Å}{{\r A}}1
+	{€}{{\EUR}}1	{£}{{\pounds}}1
+}
+
+% ***************************************************************************************************
+% Marginesy 
+% ***************************************************************************************************
+
+% Ustawienia rozmiarów stron i ich marginesów
+\usepackage[headheight=18pt, top=25mm, bottom=25mm, left=25mm, right=25mm]{geometry}
+% headheight		-	wysokość tytułów
+% top				-	margines górny
+% bottom			-	margines dolny
+% left				-	margines lewy
+% right				-	margines prawy
+
+% Usunięcie górnego marginesu dla środowisk
+\makeatletter
+\setlength\@fptop{0\p@}	
+\makeatother
+
+% ***************************************************************************************************
+% Styl 
+% ***************************************************************************************************
+
+% Definiuje środowisko 'titlingpage', które zapewnia pełną kontrolę nad układem strony tytułowej.
+\usepackage{titling}
+
+
+% Umożliwia modyfikowanie stylu spisu treści
+\usepackage{tocloft}	
+
+\tocloftpagestyle{tableOfContentStyle}
+
+% Definiowanie własnych stylów nagłówków i/lub stopek
+\usepackage{fancyhdr}
+
+% Domyślny styl dla pracy 
+\fancypagestyle{custom}{
+	\fancyhf{}									% wyczyść stopki i nagłówki
+	\fancyhead[RO]{								% Prawy, nieparzysty nagłówek
+		\hrulefill \hspace{16pt} \large Chapter \thechapter
+		\put(-472.1, 12.1){%
+			\makebox(0,0)[l]{%
+				\includegraphics[width=0.05\textwidth]{images/pwr-logo.png}
+			}
+		}
+		\put(-443,5.5){%
+			\makebox(0,0)[l]{%
+				\small Wrocław University of Science and Technology
+			}
+		}
+	}
+	\fancyhead[LE]{								% Lewy, parzysty nagłówek
+		\large Chapter \thechapter \hspace{16pt} \hrulefill 
+		\put(-22, 12.1){%
+			\makebox(0,0)[l]{%
+				\includegraphics[width=0.05\textwidth]{images/wiz-logo.png}
+			}
+		}
+		\put(-220,5.5){%
+			\makebox(0,0)[l]{%
+				\small Faculty of Computer Science and Management
+			}
+		}
+	}
+	\fancyfoot[LE,RO]{							% Stopki
+		\thepage
+	}
+	\renewcommand{\headrulewidth}{0pt}			% Grubość linii w nagłówku
+	\renewcommand{\footrulewidth}{0.2pt}		% Grubość linii w stopce
+}
+
+
+% Domyślny styl dla bibliografii
+\fancypagestyle{bibliographyStyle}{
+	\fancyhf{}									% wyczyść stopki i nagłówki
+	\fancyhead[RO]{								% Prawy, nieparzysty nagłówek
+		\hrulefill \hspace{16pt} \large Bibliography \thechapter
+		\put(-472.1, 12.1){%
+			\makebox(0,0)[l]{%
+				\includegraphics[width=0.05\textwidth]{images/pwr-logo.png}
+			}
+		}
+		\put(-443,5.5){%
+			\makebox(0,0)[l]{%
+				\small Wrocław University of Science and Technology
+			}
+		}
+	}
+	\fancyhead[LE]{								% Lewy, parzysty nagłówek
+		\large Bibliography \hspace{16pt} \hrulefill 
+		\put(-22, 12.1){%
+			\makebox(0,0)[l]{%
+				\includegraphics[width=0.05\textwidth]{images/wiz-logo.png}
+			}
+		}
+		\put(-220,5.5){%
+			\makebox(0,0)[l]{%
+				\small Faculty of Computer Science and Management
+			}
+		}
+	}
+	\fancyfoot[LE,RO]{							% Stopki
+		\thepage
+	}
+	\renewcommand{\headrulewidth}{0pt}			% Grubość linii w nagłówku
+	\renewcommand{\footrulewidth}{0.2pt}		% Grubość linii w stopce
+}
+
+% Domyślny styl dla dodatków
+\fancypagestyle{appendixStyle}{
+	\fancyhf{}									% wyczyść stopki i nagłówki
+	\fancyhead[RO]{								% Prawy, nieparzysty nagłówek
+		\hrulefill \hspace{16pt} \large Appendix \thechapter
+		\put(-472.1, 12.1){%
+			\makebox(0,0)[l]{%
+				\includegraphics[width=0.05\textwidth]{images/pwr-logo.png}
+			}
+		}
+		\put(-443,5.5){%
+			\makebox(0,0)[l]{%
+				\small Wrocław University of Science and Technology
+			}
+		}
+	}
+	\fancyhead[LE]{								% Lewy, parzysty nagłówek
+		\large Appendix \thechapter \hspace{16pt} \hrulefill 
+		\put(-22, 12.1){%
+			\makebox(0,0)[l]{%
+				\includegraphics[width=0.05\textwidth]{images/wiz-logo.png}
+			}
+		}
+		\put(-220,5.5){%
+			\makebox(0,0)[l]{%
+				\small Faculty of Computer Science and Management
+			}
+		}
+	}
+	\fancyfoot[LE,RO]{							% Stopki
+		\thepage
+	}
+	\renewcommand{\headrulewidth}{0pt}			% Grubość linii w nagłówku
+	\renewcommand{\footrulewidth}{0.2pt}		% Grubość linii w stopce
+}
+
+% Osobny styl dla stron zaczynających rozdział/spis treści itd. (domyślnie formatowane jako "plain")
+\fancypagestyle{chapterBeginStyle}{
+	\fancyhf{}%
+	\fancyfoot[LE,RO]{
+		\thepage
+	}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0.2pt}
+}
+
+% Styl dla pozostałych stron spisu treści
+\fancypagestyle{tableOfContentStyle}{
+	\fancyhf{}%
+	\fancyfoot[LE,RO]{
+		\thepage
+	}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0.2pt}
+}
+
+% Formatowanie tytułów rozdziałów i/lub sekcji
+\usepackage{titlesec}
+
+% Formatowanie tytułów rozdziałów
+\titleformat{\chapter}[hang]					% kształt
+{
+	\vspace{-15ex}
+	\Huge
+	\bfseries
+}												% formatowanie tekstu modyfikowanego elementu
+{
+    \thechapter	
+}												% etykieta występująca przed tekstem modyfikowanego elementu, niewidoczna w spisie treści
+{
+	10pt
+}												% odstęp formatowanego tytułu od lewego marginesu/etykiety
+{
+	\Huge
+	\bfseries
+}												% formatowanie elementów przed modyfikowanym tytułem
+[
+\vspace{2ex}
+%\rule{\textwidth}{0.4pt}
+%\vspace{-4ex}
+]												% dodatkowe formatowanie stosowane poniżej modyfikowanego tytułu
+
+
+% Formatowanie tytułów sekcji
+\titleformat{\section}[hang]					% kształt
+{
+	\vspace{2ex}
+%	\titlerule\vspace{1ex}
+	\Large\bfseries
+}												% formatowanie tekstu modyfikowanego elementu
+{
+	\thesection									% etykieta występująca przed tekstem modyfikowanego elementu, niewidoczna w spisie treści
+}
+{
+	0pt
+}												% odstęp formatowanego tytułu od lewego marginesu/etykiety
+{
+	\Large
+	\bfseries
+}												% formatowanie elementów przed modyfikowanym tytułem
+
+% ***************************************************************************************************
+% Linki
+% ***************************************************************************************************
+
+% Umożliwia wstawianie hiperłączy do dokumentu
+\usepackage{hyperref}							% Aktywuje linki
+
+\hypersetup{
+	colorlinks	=	true,					% Koloruje tekst zamiast tworzyć ramki.
+	linkcolor	=	blue,					% Kolory: referencji,
+    citecolor	=	blue,					% cytowań,
+	urlcolor	=	blue					% hiperlinków.
+}
+
+% Do stworzenia hiperłączy zostanie użyta ta sama (same) czcionka co dla reszty dokumentu
+\urlstyle{same}
+
+
+
+
+% ***************************************************************************************************
+% Linki
+% ***************************************************************************************************
+
+% Umożliwia zdefiniowanie własnego stylu wyliczeniowego
+\usepackage{enumitem}
+
+% Nowa lista numerowana z trzema poziomami
+\newlist{myitemize}{itemize}{3}
+
+% Definicja wyglądu znacznika pierwszego poziomu
+\setlist[myitemize,1]{
+	label		=	\textbullet,
+	leftmargin	=	4mm}
+
+% Definicja wyglądu znacznika drugiego poziomu
+\setlist[myitemize,2]{
+	label		=	$\diamond$,
+	leftmargin	=	8mm}
+
+% Definicja wyglądu znacznika trzeciego poziomu
+\setlist[myitemize,3]{
+	label		=	$\diamond$,
+	leftmargin	=	12mm
+}
+
+% ***************************************************************************************************
+% Inne pakiety
+% ***************************************************************************************************
+
+% Dołączanie rysunków
+\usepackage{graphicx}
+\usepackage{wrapfig}
+
+% Wykresy
+\usepackage{pgfplots}
+
+% Figury i przypisy
+\usepackage{caption}
+\usepackage{subcaption}
+
+% Umożliwia tworzenie przypisów wewnątrz środowisk
+\usepackage{footnote}
+
+% Umożliwia tworzenie struktur katalogów
+\usepackage{dirtree}
+
+% Rozciąganie komórek tabeli na wiele wierszy
+\usepackage{multirow}
+
+% Precyzyjne obliczenia szerokości/wysokości dowolnego fragmentu wygenerowanego przez LaTeX
+\usepackage{calc}
+
+% ***************************************************************************************************
+% Matematyczne skróty
+% ***************************************************************************************************
+
+% Skrócony symbol liczb rzeczywistych
+\newcommand{\RR}{\mathbb{R}}
+
+% Skrócony symbol liczb naturalnych
+\newcommand{\NN}{\mathbb{N}}
+
+% Skrócony symbol liczb wymiernych
+\newcommand{\QQ}{\mathbb{Q}}
+
+% Skrócony symbol liczb całkowitych
+\newcommand{\ZZ}{\mathbb{Z}}
+
+% Skrócony symbol logicznej implikacji
+\newcommand{\IMP}{\rightarrow}
+
+% Skrócony symbol  logicznej równoważności
+\newcommand{\IFF}{\leftrightarrow}
+
+% ***************************************************************************************************
+% Środowiska
+% ***************************************************************************************************
+
+% Środowisko do twierdzeń
+\newtheorem{theorem}{Theorem}[chapter]
+
+% Środowisko do lematów
+\newtheorem{lemma}{Lemma}[chapter]
+
+% Środowisko do przykładów
+\newtheorem{example}{Example}[chapter]
+
+% Środowisko do wniosków
+\newtheorem{corollary}{Conclusion}[chapter]
+
+% Środowisko do definicji
+\newtheorem{definition}{Definition}[chapter]
+
+% Środowisko do dowodów
+\newenvironment{proof}{
+	\par\noindent \textbf{Proof.}
+}{
+\begin{flushright}
+	\vspace*{-6mm}\mbox{$\blacklozenge$}
+\end{flushright}
+}
+
+%multicolumn
+\usepackage{multicol}
+
+% Środowisko do uwag
+\newenvironment{remark}{
+	\bigskip \par\noindent \small \textbf{Remark.}
+}{
+\begin{small}
+	\vspace*{4mm}
+\end{small}
+}
+
+% ***************************************************************************************************
+% Słownik
+% ***************************************************************************************************
+
+% Prawidłowe dzielenie wyrazów
+% \hyphenation{wszy-stkich ko-lu-mnę każ-da od-leg-łość
+% 	dzie-dzi-ny dzie-dzi-na rów-nych rów-ny
+% 	pole-ga zmie-nna pa-ra-met-rów wzo-rem po-cho-dzi
+% 	o-trzy-ma wte-dy wa-run-ko-wych lo-gicz-nie
+% 	skreś-la-na skreś-la-ną cał-ko-wi-tych wzo-rów po-rzą-dek po-rząd-kiem
+% 	przy-kład pod-zbio-rów po-mię-dzy re-pre-zen-to-wa-ne
+% 	rów-no-waż-ne bi-blio-te-kach wy-pro-wa-dza ma-te-ria-łów
+% 	prze-ka-za-nym skoń-czo-nym moż-esz na-tu-ral-na cią-gu tab-li-cy
+% 	prze-ka-za-nej od-po-wied-nio}
+
+% ***************************************************************************************************
+% Dokument
+% ***************************************************************************************************
+
+
+\usepackage[english, masters]{title_page_wiz}
+
+% Set up the thesis
+\author{Kemal Erdem}
+\title{Attribution Methods in Interpretability of Deep Convolutional Neural Networks}
+\supervisor{prof. dr hab. inż. Halina Kwaśnicka}
+\fieldofstudy{Applied Computer Science}
+\specialty{Data Science}
+\keywords{explainable artificial intelligence, convolutional neural networks, attribution methods, quantitative research, augmentation methods}
+\summary{This thesis focuses on analyzing methods and measures used in Explainable Artificial Intelligence (XAI). Conducted experiments show the effect of augmentation on the interpretability of deep learning models by checking their structural similarity. The obtained results made it possible to compare the robustness of the tested XAI methods. They also provide an inside on the reliability of measures to measure XAI methods.}
+\year=2021
+
+% \frontmatter
+
+\pgfplotsset{compat=1.17} 
+\begin{document}
+
+\maketitle
+
+% 	\begin{titlingpage}
+% 		\vspace*{\fill}
+% 		\begin{center}
+% 			\begin{picture}(300,510)
+% 				\put(11,520){\makebox(0,0)[l]{\large \textsc{Faculty of Computer Science and Management}}}
+% 				\put(11,500){\makebox(0,0)[l]{\large \textsc{Wrocław University of Science and Technology}}}
+% % Tytuł pracy
+% 				\put(20,320){\huge \textsc{Attribution methods in }}
+% 				\put(20,280){\huge \textsc{interpretability of}}
+% 				\put(20,240){\huge \textsc{Deep Convolutional Neural Networks}}
+% % Autor pracy
+% 				\put(20,200){\makebox(0,0)[l]{\large \textsc{Kemal Erdem}}}
+% 				\put(20,180){\makebox(0,0)[l]{\large \textsc{Student ID: 183705}}}
+
+% 				\put(20,150){\makebox(0,0)[l]{\large Supervisor:}}
+% 				\put(20,130){\makebox(0,0)[l]{\large prof. dr hab. inż. Halina Kwaśnicka}}
+% % dane promotora
+				
+% 				\put(115,-70){\includegraphics[width=0.15\textwidth]{images/pwr.png}}
+% 				\put(106,-80){\makebox(0,0)[bl]{\large \textsc{Wrocław 2021}}}
+% 			\end{picture}
+% 		\end{center}	
+% 		\vspace*{\fill}
+% 	\end{titlingpage}
+	\input{abstract}
+	
+        \cleardoublepage
+		
+	\pagenumbering{Roman}
+	\pagestyle{tableOfContentStyle}
+	\tableofcontents
+	\cleardoublepage
+		
+	% ***************************************************************************************************
+	% Wstęp
+	% ***************************************************************************************************
+	
+	\pagestyle{custom}
+	\mainmatter
+	
+	% ***************************************************************************************************
+	% Rodziały
+	% ***************************************************************************************************
+
+	\input{intro/intro}
+	\cleardoublepage
+
+	\input{background/background}
+	\cleardoublepage
+
+	\input{methods/methods}
+	\cleardoublepage
+	
+	\input{experiments/experiments}
+	\cleardoublepage
+	
+	\input{results/results}
+	\cleardoublepage
+	
+	\input{conclusions}
+	\cleardoublepage
+	
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% BIBLIOGRAFIA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\pagestyle{bibliographyStyle}
+	\bibliographystyle{plabbrv}
+	\bibliography{literature}
+	\thispagestyle{chapterBeginStyle}
+        \addcontentsline{toc}{chapter}{Bibliography}
+
+	\cleardoublepage
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% DODATKI %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+    \listoffigures
+    
+    \listoftables
+    
+    % \listoflistings
+    
+	\appendix
+	\pagestyle{appendixStyle}
+	
+	\input{appendixes/appendix1}
+	\cleardoublepage
+
+\end{document}
+

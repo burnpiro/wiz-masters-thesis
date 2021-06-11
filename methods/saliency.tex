@@ -1,0 +1,59 @@
+\section{Saliency}\label{section:saliency}
+
+Saliency \cite{simonyan2014deep} is one of the first attribution methods designed to visualize the input attribution of the Convolutional Network. Because the word \textit{saliency} is often related to the whole approach to display input attribution called \textit{Saliency Map}, this method is also known as \textit{Vanilla Gradient}.
+
+\vspace{\baselineskip}
+
+The idea of the Saliency method starts from the class visualization by finding $L_2\text{-regularized}$ image $I$ that maximizes score $S_c$ for a given class $c$. It can be written formally as:
+
+\begin{equation}
+\arg \max _{I} S_{c}(I)-\lambda\|I\|_{2}^{2}
+\label{eq:saliency-image-maximization}
+\end{equation}
+
+\begin{wrapfigure}{R}{0.40\textwidth}
+  \setlength{\belowcaptionskip}{-12pt}
+  \includegraphics[width=0.40\textwidth]{methods/images/saliency-class-image-visualization.png}
+  \caption{The class model visualizations for several classes, source \cite{simonyan2014deep}}\label{fig:saliency-class-image-visualization}
+\end{wrapfigure}
+
+Where $\lambda$ is a regularisation parameter. To find the value of $I$, we can use the back-propagation method. Unlike in the standard learning process, we are going to back-propagate with respect to the input image, not the first convolution layer. This optimization allows us to produce images that visualize a particular class in our model (see Fig. \ref{fig:saliency-class-image-visualization}).
+
+\vspace{\baselineskip}
+
+This idea can be extrapolated, and with minor modifications, we should be able to query for spatial support of class $c$ in a given image $I_0$. To do this, we have to rank pixels of $I_0$ in relation to their importance in predicting score $S_c(I_0)$. Authors assume that we can approximate $S_c(I)$ with a linear function in the neighborhood of $I_0$ with:
+
+\begin{equation}
+S_{c}(I) \approx w^\intercal I + b
+\label{eq:saliency-class-score-approximation}
+\end{equation}
+
+where $w$ is a:
+
+\begin{equation}
+w=\left.\frac{\partial S_{c}}{\partial I}\right|_{I_{0}}
+\label{eq:saliency-class-score-derivate}
+\end{equation}
+
+For a pair of input image $I_0 \in \mathbb{R}^{m \times n}$ and the class $c$, we are able to compute saliency map $A \in \mathbb{R}^{m \times n}$ (where $m$ and $n$ are the height and width of the input in pixels). All we have to do is to compute derivative $w$ (\ref{eq:saliency-class-score-derivate}) and rearrange elements in the returned vector.
+
+\vspace{\baselineskip}
+
+This method uses different approaches base on the number of channels in the input image $I_0$. For grey-scale pixels (one color channel), we can rearrange the pixels to match the shape of the image. If the number of channels is greater than one, we are going to use the maximum value from each set of values related to the specified pixel.
+
+
+\begin{wrapfigure}{L}{0.30\textwidth}
+  \includegraphics[width=0.30\textwidth]{methods/images/pug-saliency.png}
+  \caption{Visualization of the saliency map by the Saliency generated for the class \textit{pug}. Image source: \textit{Stanford Dogs} \cite{stanford-dogs}}\label{fig:saliency-map-pug}
+\end{wrapfigure}
+
+\begin{equation}
+A_{i,j} = \max _{ch}|w_{h(i,j,ch}|
+\label{eq:saliency-rgb-map-generation}
+\end{equation}
+
+where $ch$ is a color channel of the pixel $(i,j)$ and $h(i,j,ch)$ is an index of the $w$ corresponding to the same pixel $(i,j)$. With the obtained map, we can visualize pixel importance for the input image $I_0$ as shown in the Figure \ref{fig:saliency-map-pug}.
+
+\vspace{\baselineskip}
+
+The original \textit{Saliency} method produces a lot of additional noise but still gives us an idea of which part of the input image is relevant when predicting a specific class. This often causes a problem when the object on the image has a lot of details and the model is using most of them to make a prediction.

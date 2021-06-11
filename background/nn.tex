@@ -1,0 +1,149 @@
+\section{Neural Networks}\label{section:neural-networks}
+
+\begin{wrapfigure}{R}{0.5\textwidth}
+% \vspace{-50mm}
+    \centering
+  \includegraphics[width=0.45\textwidth]{background/images/neural-network.png}
+  \caption{Basic artificial neural network structure.}\label{fig:neural-network}
+  \vspace{-16mm}
+\end{wrapfigure}
+
+Artificial Neural Networks are systems that are based on the network of neurons of the animal brain \cite{mcculloch1943logical}. These neurons are called \textit{artificial neurons} and are referred to as \textit{nodes}. They are interconnected and organized in \textit{layers} to eventually form a neural network (see Fig. \ref{fig:neural-network}). Each node (represented by a circle) receives the information from the nodes in the previous layer and transmits the new information to the next layer. Input nodes are the exception because they already have the information. New information transmitted by the node is a value from its activation function after receiving all the inputs. The connection between two nodes modifies the output from the lower-layer node before entering the higher-layer node. Most of the networks have an additional bias value for each of the nodes, which can be seen as a regularization parameter. Neural networks have at least three layers: one input layer, one output layer, and at least one hidden layer. The output of the neural network can be defined as:
+
+\begin{equation}\label{eq:forward-pass}
+    z^l_j = \sigma \left( \sum_{i}^N(x_i^{l-1} *w_{i,j}^l) + b^l_j \right)
+\end{equation}
+
+\newpage
+
+Where:
+
+\begin{itemize}
+    \item $l$ is a current layer
+    \item $z_j^l$ is an output from the $j$th neuron in layer $l$
+    \item $x_i^{l-1}$ is an output from the $i$th neuron on the $l-1$ layer (previous layer)
+    \item $w_{i,j}^l$ is a weight for the pair of a current neuron at $j$th position and $i$th neuron from the previous layer
+    \item $N$ is a number of neurons in the $l-1$ layer
+    \item $b_j^l$ is a bias of $j$th neuron in layer $l$
+    \item $\sigma$ is an activation function
+\end{itemize}
+
+The goal of a neural network is then finding the value of the weights $w_{ij}^l$ and the biases $b_j^l$ to generate the correct output. These values are optimized in the process called backpropagation.
+
+\subsection{Backpropagation}
+
+Backpropagation is an algorithm that calculates the changes to the weights of the network that are then used to update those weights. The process was first described by Paul Werbos in 1974 \cite{werbos1974beyond}. Even if the name "backpropagation" refers only to gradient computation, it is usually used to describe the whole process of updating the weights. This process consists of three parts. The first part is a feed-forward computation of the input (as defined above), then the error is calculated using the loss function, and lastly, based on the loss function with respect to the weights, the backpropagation computer the gradient used to update the weights.
+
+\vspace{\baselineskip}
+
+After the forward propagation, the error is calculated using a loss function $L(y,\hat{y})$ (where $\hat{y}$ is a predicted output and $y$ is a target output). Usually, the output of the network is a vector $\hat{y} \in \mathbb{R}^n$, and the loss function is a function that translates the difference between $y$ and $y$ into a real number, representing the "cost". One of the simplest loss functions is the Euclidean distance:
+
+\begin{equation}
+    L(y,\hat{y}) = \frac{1}{2} || \hat{y} - y  ||^2
+\end{equation}
+
+In order to update weights, the gradients have to be calculated with respect to these weights:
+
+\begin{equation}
+    \frac{\partial L}{\partial W_l}
+\end{equation}
+
+Where $W_l$ is a weight matrix at layer $l$. Computation of that gradient is difficult, but fortunately, the chain rule can be used. It is easier to explain the calculation when the forward function is split into parts (where $\text{CE}$ stands for \textit{Cross-Entropy} loss function defined in equation \ref{eq:cross-entropy}, often used for classification).
+
+\begin{equation}
+    z_1 = W_1x + b_1
+\end{equation}
+\begin{equation}\label{eq:activation-relu}
+    h = \text{ReLU}(z_1)
+\end{equation}
+\begin{equation}
+    z_2 = W_2h + b_2
+\end{equation}
+\begin{equation}
+    \hat{y} = \text{sorfmax}(z_2)
+\end{equation}
+\begin{equation}
+    L = \text{CE}(y, \hat{y})
+\end{equation}
+
+\begin{equation}\label{eq:cross-entropy}
+    \text{CE}(y, \hat{y}) = -(y log(\hat{y}) + (1-y)log(1-\hat{y}))
+\end{equation}
+
+
+Gradient for $W_1$:
+
+\begin{equation}
+    \frac{\partial L}{\partial W_1} = \frac{\partial L}{\partial z_2}\frac{\partial z_1}{\partial W_1} = \left( (\hat{y} - y)^Tz_2 \circ sgn(h) \right)^T x^T
+\end{equation}
+
+And for $b_1$ :
+
+\begin{equation}
+    \frac{\partial L}{\partial w_1} = \frac{\partial L}{\partial z_2}\frac{\partial z_1}{\partial b_1} = \left( (\hat{y} - y)^Tz_2 \circ sgn(h) \right)^T
+\end{equation}
+
+Where $sgn$ is a sign function which is a derivative of the ReLU activation function (see eq. \ref{eq:relu-deriv}). With the value of the gradients, weights and biases can be updated.
+
+\subsubsection*{ReLU}
+
+\begin{wrapfigure}{R}{0.30\textwidth}
+  \begin{tikzpicture}
+    \begin{axis}[
+        axis lines = left,
+        xlabel = $x$,
+        ylabel = {$f(x)$},
+        width=0.3\textwidth,
+        ymin = -1,
+        ymax = 1,
+        grid=both,
+        legend pos=north east,
+    ]
+    %Here the blue parabloa is defined
+    \addplot [
+        domain=-1:1, 
+        samples=100, 
+        color=blue,
+        ]
+        {max(0, x)};
+    
+    \end{axis}
+  \end{tikzpicture}
+  \caption{$\text{ReLU}(x)$ where $x \in <-1,1>$}\label{fig:relu-example}
+  \begin{tikzpicture}
+    \begin{axis}[
+        axis lines = left,
+        xlabel = $x$,
+        ylabel = {$f(x)$},
+        width=0.3\textwidth,
+        ymin = -1,
+        ymax = 1,
+        grid=both,
+        legend pos=north east,
+    ]
+    %Here the blue parabloa is defined
+    \addplot [
+        domain=-1:1, 
+        samples=100, 
+        color=blue,
+        ]
+        {max(x/6, x)};
+    
+    \end{axis}
+  \end{tikzpicture}
+  \caption{$\text{Leaky ReLU}(x)$ where $x \in <-1,1>$}\label{fig:leaky-relu-example}
+\end{wrapfigure}
+
+As described in equation \ref{eq:forward-pass} and then later in \ref{eq:activation-relu}, the output is calculated with the use of the activation function. Usually that function is a ReLU function \cite{hahnloser2000digital}. ReLU stands for \textit{Rectified Linear Unit function} and is defined as:
+
+\begin{equation}
+    \text{ReLU}(x) = max(x,0)
+\end{equation}
+
+and visualized in Figure \ref{fig:relu-example}. Because ReLU returns $0$ every time the value of $x$ is less than $0$, it can deactivate neurons, and therefore create sparser networks. There are two issues with the ReLU function. The first one is that it can create "dead neurons" if all of the inputs of a neuron are less than zero. The second one is that it is not fully differentiable (at the $(0,1)$ point). The first one was solved by Mass et al. \cite{maas2013rectifier} by replacing a zero-valued tail of the ReLU with a slightly negative value $\alpha x$ (where $\alpha$ is a small positive number). Derivative of the ReLU function is defined as follow:
+
+\begin{equation}\label{eq:relu-deriv}
+    \text{ReLU}'(x) = \begin{cases} 1 & \text{if } x > 0 \\ 0 & \text{otherwise} \end{cases} = sgn(\text{ReLU}(x))
+\end{equation}
+
+\input{background/cnns}

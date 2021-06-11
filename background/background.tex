@@ -1,0 +1,103 @@
+\chapter{Theoretical Background}\label{chapter:background}
+\thispagestyle{chapterBeginStyle}
+\label{theoretical-background}
+
+\section{Machine Learning}
+
+Machine learning is described as a computer system that can increase its performance in performing a specific task by learning from experiences of similar tasks it has performed in the past (Carbonell, Michalski, and Mitchell \cite{carbonell1983overview}). This definition was formally defined by T. Mitchell in 1997 \cite{mitchell1997machine}, and it is currently the most common definition of machine learning:
+
+\begin{definition}{Machine Learning}
+A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P if its performance at tasks in T, as measured by P, improves with experience E.
+\end{definition}
+
+Machine learning approaches are often divided into three categories: \textit{Supervised learning}, \textit{Unsupervised learning}, and \textit{Reinforcement learning} \cite{ayodele2010types}. Supervised learning uses labeled training data to approximate the function that maps the input data into correct labels. Unsupervised learning does not use the labeled training data. Instead, it uses the unlabeled data to create a representation of that data, which can then be used for tasks like clustering or as an input for other types of networks. Lastly, reinforcement learning learns decisions by interacting with a dynamic environment. Correct decisions are rewarded, which should encourage the system to make similar decisions.
+
+\vspace{\baselineskip}
+
+This thesis focuses on supervised learning, and to be more specific, the classification task. Classification requires the model to provide a single class based on the input data, whereas regression tries to find the relation between the input and the output. Supervised learning is used in many fields, especially in the image classification task, which base on the set of input features, should infer the correct class of the object on the image.
+
+\input{background/nn}
+\input{background/explainability}
+
+\section{Attribution Methods}
+
+
+Attribution methods are one of the types of post-hoc methods (see section \ref{section:taxonomy-xai}). Attribution methods, as the name says, attribute the input features to a given prediction. It can be defined as:
+
+\begin{definition}[Attribution method]\label{def:attribution-method}
+Given an input vector $x \in \mathbb{R}^n$ where $n$ represents the number of dimensions, class $C$ and the model $F: \mathbb{R}^{n} \rightarrow \mathbb{R}^C$. The attribution method is defined as $A(F, x, C): \mathbb{R}^{n} \rightarrow \mathbb{R}^{n}$. Provided explanation corresponds to the "importance" of an element from the input vector for a given \textit{class} $C$ and \textit{model} $F$.
+\end{definition}
+
+This definition can be rewritten to fit the input of the usual Convolutional Neural Network with the $m \times n$ input matrix:
+
+\begin{definition}[Attribution method - CNN]\label{def:attribution-method-cnn}
+Given an input matrix $x \in \mathbb{R}^{m \times n}$ where $m \times n$ represents the dimensions of the input, class $C$ and the model $F: \mathbb{R}^{m \times n} \rightarrow \mathbb{R}^C$. The attribution method is defined as $A(F, x, C): \mathbb{R}^{m \times n} \rightarrow \mathbb{R}^{m \times n}$. Provided explanation corresponds to the "importance" of an element from the input matrix for a given \textit{class} $C$ and \textit{model} $F$.
+\end{definition}
+
+\begin{wrapfigure}{R}{0.50\textwidth}
+  \includegraphics[width=0.50\textwidth]{background/images/1280-Ibizan_hound-Ibizan_hound.png}
+  \caption{Visualization of the attribution by the Guided GradCAM generated for the class \textit{ibizan\_hound}. Image source: \textit{Stanford Dogs} \cite{stanford-dogs}}\label{fig:gradcam-ibizan-hound}
+  \vspace{-30mm}
+\end{wrapfigure}
+
+
+To better visualize the attribution, we can look at Figure \ref{fig:gradcam-ibizan-hound}. For predicting a class of \textit{ibizan\_hound}, each pixel of the input image was given a value that defined its attribution to the prediction. Pixels (features) with higher attribution could be considered "more important" in predicting that class. We can see that the pixels with the highest attribution values are the pixels at the edges of the dog's head and ears. 
+
+\vspace{\baselineskip}
+
+As in the case of interpretability versus explainability (section \ref{section:interpretability-def}), the is a lack of agreement on vocabulary. Attribution methods are often known as \textit{saliency methods}, \textit{feature relevance}, \textit{feature importance}, \textit{heatmaps}, \textit{neuron activations}, and \textit{saliency masks}.
+
+\newpage
+
+\section{Quantitative and Qualitative research}
+
+The type of research can be divided into qualitative or quantitative \cite{creswell2002educational}. The qualitative type of research is often related to the observation and processing of non-numerical data. The contrast to qualitative research is called quantitative research, and  it relies on the numerical analysis of collected data. Interpretability of machine learning models is a human-centric field of study. That is why most of the XAI method researchers base their solutions on qualitative measures rather than quantitative ones. This thesis argues that the current qualitative approach can prone to errors.
+
+\subsection{Qualitative measures}
+
+In qualitative research, the data is collected through observation, pools, or interviews. This kind of data is very subjective and related to the person providing the data. An example of such a subjective measure is shown in Figure \ref{fig:attr-comparison}. If presented with two attributions for the same input image, the decision of which one is better may change with the person. This is even more likely when two attributions have similar "quality". 
+
+\begin{figure}[h]
+  \centering
+ \begin{subfigure}{.23\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{background/images/org-Japanese_spaniel.png}
+    \caption{Input data}\label{fig:attr-comparision-image}
+\end{subfigure}
+ \begin{subfigure}{.23\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{background/images/deconv-Japanese_spaniel.png}
+    \caption{Attribution 1}\label{fig:attr-comparision-deconv}
+\end{subfigure}
+ \begin{subfigure}{.23\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{background/images/gbpJapanese_spaniel.png}
+    \caption{Attribution 2}\label{fig:attr-comparision-gbp}
+\end{subfigure}
+
+ \caption{Comparison of attributions from two different methods for the same input data. Both attributions are generated for the same model with different XAI methods. Image source: \textit{Stanford Dogs} \cite{stanford-dogs} }\label{fig:attr-comparison}
+\end{figure}
+
+The results of the qualitative measures cannot be compared with each other without the specific context and prior knowledge about the data producers. Even with that knowledge, comparing the results might be difficult. The same issue applies to reproducibility, were to repeat the measurement, we have to be sure that all the participants are going to give the same answer. Another problem with qualitative measures is their scalability. Because most of the methods rely on human input, to measure the same method again or to compare it with another method, we have to repeat the work twice.
+
+\subsection{Quantitative measures}
+
+The data in the quantitative research is stored in a numeric form. This numeric form has to be comparable with other data measured in the same way. Each measurement is repeatable, and when done once, it can be reused all over again. This type of research has a huge advantage over qualitative research because of its scalability. The problem with qualitative measurement is that we have to define the measure to return meaningful results. Defining a measure of human visual perception is a difficult task, and the measure itself should be objective, which is even harder when trying to measure complex things like attributions. Having such a measure allows us to easily compare and reproduce experiments.
+
+\newpage
+
+\section{Related work}
+
+Ghorbani et al. \cite{ghorbani2019interpretation} discuss attacks using adversarial perturbations to produce different interpretations of the same image. Their paper shows that we can generate such adversarial perturbations that produce perceptively indistinguishable inputs with the same prediction, but the attribution differs by a considerable margin from the original attribution. This thesis also focuses on the effect of input perturbation, but instead of searching for adversarial perturbation, it applies augmentations that aim to simulate real-world image processing that happens in modern cameras and check how they influence attribution.
+
+\vspace{\baselineskip}
+
+Another approach to the influence of perturbation on interpretability was taken by Kindermans et al. \cite{kindermans2016investigating}. They have studied the effect of applying noise to the input image and what effect it has on the explanation provided by the methods available at that time.
+
+\vspace{\baselineskip}
+
+One of the most influential papers on the subject was done by Adebayo et al. \cite{adebayo2018sanity} in 2018. Their work examined the influence of noise on the gradient values on different layers in the CNN. This was done by checking the correlation between the value of the gradient before and after applying the noise. The check was performed using multiple similarity metrics. Their work proved that gradients could be influenced by simple noise.
+
+\vspace{\baselineskip}
+
+Hooker et al. \cite{hooker2018benchmark} were one of the first who tried to measure the XAI methods quantitatively. The exact framework used is described in section \ref{section:roar}. The study assumed that if after removing pixels attributed as important to the prediction and retraining the model, the model still performs well, then the attribution is wrong. This approach might be logical, but it is extremely computationally expensive and therefore useless in real-world scenarios when there are limited resources.
