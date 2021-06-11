@@ -2,7 +2,7 @@
 
 
 ## Thesis title:
-#### Attribution_Methods_in_Interpretability_of_Deep_Convolutional_Neural_Networks [PDF](https://github.com/burnpiro/wiz-masters-thesis/raw/main/Attribution_Methods_in_Interpretability_of_Deep_Convolutional_Neural_Networks.pdf)
+#### Attribution_Methods_in_Interpretability_of_Deep_Convolutional_Neural_Networks ([PDF](https://github.com/burnpiro/wiz-masters-thesis/raw/main/Attribution_Methods_in_Interpretability_of_Deep_Convolutional_Neural_Networks.pdf))
 
 Wrocław University of Science and Technology (WUST) | Politechnika Wrocławska (PWR)
 
